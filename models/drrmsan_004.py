@@ -327,7 +327,7 @@ def rec_res_block(input_layer, filters, batch_normalization=False, kernel_size=[
 
 
 
-def DRRMSAN_multiscale_attention_bayes_004(height, width, n_channels, alpha_1, alpha_2, alpha_3, alpha_4):
+def DRRMSAN_multiscale_attention_bayes_003(height, width, n_channels, alpha_1, alpha_2, alpha_3, alpha_4):
     '''
     DRRMSAN Multiscale Attention Model
 
@@ -425,7 +425,6 @@ def DRRMSAN_multiscale_attention_bayes_004(height, width, n_channels, alpha_1, a
     pool1 = MaxPooling2D(pool_size=(2, 2))(mresblock1)
     #===================
     pool1 = Conv2D(per_down_1_2I, (3, 3), strides=(1,1), padding='same')(pool1)
-    
     left_block_1 = concatenate([pool1, mrb2_1_2I_avgpool, mrb2_1_2I_mxpool, mrb2_1_2I_minpool])
     
     #left_block_1 = rec_res_block(left_block_1, total_1_2I)
@@ -440,10 +439,8 @@ def DRRMSAN_multiscale_attention_bayes_004(height, width, n_channels, alpha_1, a
     pool2 = MaxPooling2D(pool_size=(2, 2))(mresblock2)
     #===================
     pool2 = Conv2D(per_down_1_4I, (3, 3), strides=(1,1), padding='same')(pool2)
-    #left_block_2 = concatenate([pool2, mrb3_1_4I_avgpool, mrb3_1_4I_mxpool, mrb3_1_4I_minpool])
-    
-    left_block_2 = proposed_attention_block_2d(left_block_1, mresblock2,filters=total_1_4I)
-    left_block_2 = add([concatenate([pool2, mrb3_1_4I_avgpool, mrb3_1_4I_mxpool, mrb3_1_4I_minpool]), left_block_2])
+    left_block_2 = concatenate([pool2, mrb3_1_4I_avgpool, mrb3_1_4I_mxpool, mrb3_1_4I_minpool])
+    left_block_2 =  proposed_attention_block_2d(left_block_2, mresblock2,filters=51)
     #left_block_2 = rec_res_block(left_block_2, total_1_4I)
     #pool2 = multiply([pool2, mrb3_1_4I])
     #pool2 = proposed_attention_block_2d(pool2, mresblock2,filters=105)
@@ -455,9 +452,7 @@ def DRRMSAN_multiscale_attention_bayes_004(height, width, n_channels, alpha_1, a
     pool3 = MaxPooling2D(pool_size=(2, 2))(mresblock3)
     #===================
     pool3 = Conv2D(per_down_1_8I, (3, 3), strides=(1,1), padding='same')(pool3)
-    left_block_3 = proposed_attention_block_2d(left_block_2, mresblock3,filters=total_1_8I)
-    left_block_3 = add([concatenate([pool3, mrb4_1_8I_avgpool, mrb4_1_8I_mxpool, mrb4_1_8I_minpool]), left_block_3])
-    
+    left_block_3 = concatenate([pool3, mrb4_1_8I_avgpool, mrb4_1_8I_mxpool, mrb4_1_8I_minpool])
     #left_block_3 = rec_res_block(left_block_3, total_1_8I)
     #pool3 = multiply([pool3, mrb4_1_8I])
     #pool3 = proposed_attention_block_2d(pool3, mresblock3,filters=212)
