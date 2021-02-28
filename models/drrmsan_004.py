@@ -434,7 +434,7 @@ def DRRMSAN_multiscale_attention_bayes_004(height, width, n_channels, alpha_1, a
     mresblock1 = ResPath(32, 4, mresblock1)
 
     
-    mresblock2 = proposed_attention_block_2d(left_block_2,MultiResBlock(32*2, left_block_1),filters=total_1_4I)
+    mresblock2 = MultiResBlock(32*2, left_block_1)
     #mresblock2 = rec_res_block(mresblock2, 105)
     pool2 = MaxPooling2D(pool_size=(2, 2))(mresblock2)
     #===================
