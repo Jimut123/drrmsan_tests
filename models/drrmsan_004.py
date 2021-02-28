@@ -440,7 +440,7 @@ def DRRMSAN_multiscale_attention_bayes_004(height, width, n_channels, alpha_1, a
     #===================
     pool2 = Conv2D(per_down_1_4I, (3, 3), strides=(1,1), padding='same')(pool2)
     left_block_2 = concatenate([pool2, mrb3_1_4I_avgpool, mrb3_1_4I_mxpool, mrb3_1_4I_minpool])
-    left_block_2 =  proposed_attention_block_2d(left_block_1, mresblock2,filters=51)
+    #left_block_2 =  proposed_attention_block_2d(left_block_1, mresblock2,filters=51)
     #left_block_2 = rec_res_block(left_block_2, total_1_4I)
     #pool2 = multiply([pool2, mrb3_1_4I])
     #pool2 = proposed_attention_block_2d(pool2, mresblock2,filters=105)
