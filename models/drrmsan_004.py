@@ -471,7 +471,7 @@ def DRRMSAN_multiscale_attention_bayes_004(height, width, n_channels, alpha_1, a
     #up6_add =  add([Conv2DTranspose(32*8, (2, 2), strides=(2, 2), padding='same')(mresblock5), mresblock4])
     #up6_dra = attention_up_and_concate(Conv2DTranspose(32*8, (2, 2), strides=(2, 2), padding='same', name='up6_dra')(mresblock5), mresblock4,filters=32*8)
     up6 = attention_block_2d(Conv2DTranspose(32*8, (2, 2), strides=(2, 2), padding='same', name='up6')(mresblock5), mresblock4,filters=64)
-    up6 = add([up6, mresblock4])
+    up6 = concatenate([up6, mresblock4])
     
     #concatenate([Conv2DTranspose(32*8, (2, 2), strides=(2, 2), padding='same')(mresblock5), mresblock4], axis=3)
     mresblock6 = MultiResBlock(32*8, up6)
@@ -483,7 +483,7 @@ def DRRMSAN_multiscale_attention_bayes_004(height, width, n_channels, alpha_1, a
     #up7_add = add([Conv2DTranspose(32*4, (2, 2), strides=(2, 2), padding='same')(mresblock6), mresblock3])
     #up7_dra = attention_up_and_concate(Conv2DTranspose(32*4, (2, 2), strides=(2, 2), padding='same', name='up7_dra')(mresblock6), mresblock3, filters = 32*4)
     up7 = attention_block_2d(Conv2DTranspose(32*4, (2, 2), strides=(2, 2), padding='same', name='up7')(mresblock6), mresblock3, filters = 32*4)
-    up7 = add([up7, mresblock3])
+    up7 = concatenate([up7, mresblock3])
     mresblock7 = MultiResBlock(32*4, up7)
     #mresblock7 = rec_res_block(mresblock7, 212)
     conv_7_up = Conv2D(105, (3, 3), padding='same', activation='relu', name='conv_7_up')(mresblock7)
@@ -502,7 +502,7 @@ def DRRMSAN_multiscale_attention_bayes_004(height, width, n_channels, alpha_1, a
     #up9_add = add([Conv2DTranspose(32, (2, 2), strides=(2, 2), padding='same')(mresblock8), mresblock1])
     #up9_dra = attention_up_and_concate(Conv2DTranspose(32, (2, 2), strides=(2, 2), padding='same', name='up9_dra')(mresblock8), mresblock1, filters = 32)
     up9 = attention_block_2d(Conv2DTranspose(32, (2, 2), strides=(2, 2), padding='same', name='up9')(mresblock8), mresblock1, filters = 32)
-    up9 = add([up9, mresblock1])#
+    up9 = concatenate([up9, mresblock1])#
     mresblock9 = MultiResBlock(32, up9)
     #mresblock9 = rec_res_block(mresblock9, 51)
     conv_9_up = Conv2D(32, (3, 3), padding='same', activation='relu', name='conv_8_up')(mresblock9)

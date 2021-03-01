@@ -1,6 +1,12 @@
 """
 Jacard Index : 0.8213940119865862
 Dice Coefficient : 0.8999231742052493
+
+150 =>
+
+Jacard Index : 0.8495213177715515
+Dice Coefficient : 0.9157763993524386
+
 """
 
 #!/usr/bin/env python3
