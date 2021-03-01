@@ -1,4 +1,5 @@
 """
+All ReLU Partitioned
 Jacard Index : 0.8213940119865862
 Dice Coefficient : 0.8999231742052493
 

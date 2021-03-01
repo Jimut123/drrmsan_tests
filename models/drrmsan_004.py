@@ -1,4 +1,7 @@
 """
+# Concat : With just relu and partitioned
+Jacard Index : 0.818438029800082
+Dice Coefficient : 0.8938505129556354
 
 """
 
