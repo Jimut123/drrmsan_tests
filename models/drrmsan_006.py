@@ -1,7 +1,6 @@
 """
-# Add : With just sigmoid old attn and partitioned
-Jacard Index : 0.8003175942537302
-Dice Coefficient : 0.8841408690997902
+All ReLU partitioned with Double attention
+
 """
 
 #!/usr/bin/env python3
@@ -237,10 +236,10 @@ def proposed_attention_block_2d(ms_conv, res_block, filters):
     conv_7x7 = SpatialDropout2D(0.5)(Activation('relu')(Conv2D(filters, (3, 3), strides=(1, 1), padding='same', kernel_initializer = 'he_normal', kernel_regularizer=l2(1e-4))(conv_7x7)))
     add_3x3_5x5 = add([conv_3x3, conv_5x5])
     mult_3x3_5x5 = multiply([conv_3x3, conv_5x5]) #multiply([conv_3x3, conv_5x5])#Subtract()([conv_3x3, conv_5x5])
-    add_3x3_5x5_7x7 = Activation('sigmoid')(add([add_3x3_5x5, conv_7x7]))
-    mul_3x3_5x5_7x7 = Activation('sigmoid')(multiply([mult_3x3_5x5, conv_7x7]))#multiply([mult_3x3_5x5, conv_7x7]))) # Subtract()([mult_3x3_5x5, conv_7x7])
-    add_1x1_upper = Activation('sigmoid')(Conv2D(filters, [1,  1], strides=[1, 1], padding='same')(add_3x3_5x5_7x7))
-    mult_1x1_lower = Activation('sigmoid')(Conv2D(filters, [1,  1], strides=[1, 1], padding='same')(mul_3x3_5x5_7x7))
+    add_3x3_5x5_7x7 = Activation('relu')(add([add_3x3_5x5, conv_7x7]))
+    mul_3x3_5x5_7x7 = Activation('relu')(multiply([mult_3x3_5x5, conv_7x7]))#multiply([mult_3x3_5x5, conv_7x7]))) # Subtract()([mult_3x3_5x5, conv_7x7])
+    add_1x1_upper = Activation('relu')(Conv2D(filters, [1,  1], strides=[1, 1], padding='same')(add_3x3_5x5_7x7))
+    mult_1x1_lower = Activation('relu')(Conv2D(filters, [1,  1], strides=[1, 1], padding='same')(mul_3x3_5x5_7x7))
     resampler_down_upper = MaxPooling2D(pool_size=(4, 4), strides=(2, 2))(add_1x1_upper) #AveragePooling2D
     resampler_down_lower = MaxPooling2D(pool_size=(4, 4), strides=(2, 2))(mult_1x1_lower)
     output_ms_conv_res_block = multiply([resampler_down_upper, resampler_down_lower])
@@ -255,10 +254,10 @@ def proposed_attention_block_2d(ms_conv, res_block, filters):
     conv_7x7_rb = SpatialDropout2D(0.5)(Activation('relu')(Conv2D(filters, (3, 3), strides=(1, 1), padding='same', kernel_initializer = 'he_normal', kernel_regularizer=l2(1e-4))(conv_7x7_rb)))
     add_3x3_5x5_rb = add([conv_3x3_rb, conv_5x5_rb])
     mult_3x3_5x5_rb = multiply([conv_3x3_rb, conv_5x5_rb])#multiply([conv_3x3_rb, conv_5x5_rb]) #Subtract()([conv_3x3_rb, conv_5x5_rb])
-    add_3x3_5x5_7x7_rb = Activation('sigmoid')(add([add_3x3_5x5_rb, conv_7x7_rb]))
-    mul_3x3_5x5_7x7_rb = Activation('sigmoid')(multiply([mult_3x3_5x5_rb, conv_7x7_rb]))#multiply([mult_3x3_5x5_rb, conv_7x7_rb]))) # Subtract()([mult_3x3_5x5_rb, conv_7x7_rb])
-    add_1x1_upper_rb = Activation('sigmoid')(Conv2D(filters, [1,  1], strides=[1, 1], padding='same')(add_3x3_5x5_7x7_rb))
-    mult_1x1_lower_rb = Activation('sigmoid')(Conv2D(filters, [1, 1], strides=[1, 1], padding='same')(mul_3x3_5x5_7x7_rb))
+    add_3x3_5x5_7x7_rb = Activation('relu')(add([add_3x3_5x5_rb, conv_7x7_rb]))
+    mul_3x3_5x5_7x7_rb = Activation('relu')(multiply([mult_3x3_5x5_rb, conv_7x7_rb]))#multiply([mult_3x3_5x5_rb, conv_7x7_rb]))) # Subtract()([mult_3x3_5x5_rb, conv_7x7_rb])
+    add_1x1_upper_rb = Activation('relu')(Conv2D(filters, [1,  1], strides=[1, 1], padding='same')(add_3x3_5x5_7x7_rb))
+    mult_1x1_lower_rb = Activation('relu')(Conv2D(filters, [1, 1], strides=[1, 1], padding='same')(mul_3x3_5x5_7x7_rb))
     resampler_down_upper_rb = MaxPooling2D(pool_size=(4, 4), strides=(2, 2))(add_1x1_upper_rb)
     resampler_down_lower_rb = MaxPooling2D(pool_size=(4, 4), strides=(2, 2))(mult_1x1_lower_rb)
     output_ms_conv_res_block_rb = multiply([resampler_down_upper_rb, resampler_down_lower_rb])
@@ -329,7 +328,7 @@ def rec_res_block(input_layer, filters, batch_normalization=False, kernel_size=[
 
 
 
-def DRRMSAN_multiscale_attention_bayes_005(height, width, n_channels, alpha_1, alpha_2, alpha_3, alpha_4):
+def DRRMSAN_multiscale_attention_bayes_003(height, width, n_channels, alpha_1, alpha_2, alpha_3, alpha_4):
     '''
     DRRMSAN Multiscale Attention Model
 
@@ -428,7 +427,6 @@ def DRRMSAN_multiscale_attention_bayes_005(height, width, n_channels, alpha_1, a
     #===================
     pool1 = Conv2D(per_down_1_2I, (3, 3), strides=(1,1), padding='same')(pool1)
     left_block_1 = concatenate([pool1, mrb2_1_2I_avgpool, mrb2_1_2I_mxpool, mrb2_1_2I_minpool])
-    
     #left_block_1 = rec_res_block(left_block_1, total_1_2I)
     #pool1 = multiply([pool1, mrb2_1_2I])
     #pool1 = proposed_attention_block_2d(pool1, mresblock1,filters=51)
@@ -442,7 +440,6 @@ def DRRMSAN_multiscale_attention_bayes_005(height, width, n_channels, alpha_1, a
     #===================
     pool2 = Conv2D(per_down_1_4I, (3, 3), strides=(1,1), padding='same')(pool2)
     left_block_2 = concatenate([pool2, mrb3_1_4I_avgpool, mrb3_1_4I_mxpool, mrb3_1_4I_minpool])
-    
     #left_block_2 = rec_res_block(left_block_2, total_1_4I)
     #pool2 = multiply([pool2, mrb3_1_4I])
     #pool2 = proposed_attention_block_2d(pool2, mresblock2,filters=105)
@@ -474,9 +471,9 @@ def DRRMSAN_multiscale_attention_bayes_005(height, width, n_channels, alpha_1, a
     #up6_dra = attention_up_and_concate(Conv2DTranspose(32*8, (2, 2), strides=(2, 2), padding='same', name='up6_dra')(mresblock5), mresblock4,filters=32*8)
     up6 = attention_block_2d(Conv2DTranspose(32*8, (2, 2), strides=(2, 2), padding='same', name='up6')(mresblock5), mresblock4,filters=64)
     up6 = add([up6, mresblock4])
-    
+    up6_1 = attention_block_2d(Conv2DTranspose(32*8, (2, 2), strides=(2, 2), padding='same', name='up6_1')(mresblock5), up6,filters=64)
     #concatenate([Conv2DTranspose(32*8, (2, 2), strides=(2, 2), padding='same')(mresblock5), mresblock4], axis=3)
-    mresblock6 = MultiResBlock(32*8, up6)
+    mresblock6 = MultiResBlock(32*8, up6_1)
     #mresblock6 = rec_res_block(mresblock6, 426)
     conv_6_up = Conv2D(212, (3, 3), padding='same', activation='relu', name='conv_6_up')(mresblock6)
     #conv_6_up = rec_res_block(mresblock6, 426)
@@ -486,7 +483,8 @@ def DRRMSAN_multiscale_attention_bayes_005(height, width, n_channels, alpha_1, a
     #up7_dra = attention_up_and_concate(Conv2DTranspose(32*4, (2, 2), strides=(2, 2), padding='same', name='up7_dra')(mresblock6), mresblock3, filters = 32*4)
     up7 = attention_block_2d(Conv2DTranspose(32*4, (2, 2), strides=(2, 2), padding='same', name='up7')(mresblock6), mresblock3, filters = 32*4)
     up7 = add([up7, mresblock3])
-    mresblock7 = MultiResBlock(32*4, up7)
+    up7_1 = attention_block_2d(Conv2DTranspose(32*4, (2, 2), strides=(2, 2), padding='same', name='up7_1')(mresblock6), up7,filters=32*4)
+    mresblock7 = MultiResBlock(32*4, up7_1)
     #mresblock7 = rec_res_block(mresblock7, 212)
     conv_7_up = Conv2D(105, (3, 3), padding='same', activation='relu', name='conv_7_up')(mresblock7)
     #conv_7_up = rec_res_block(mresblock7, 212)
@@ -495,8 +493,9 @@ def DRRMSAN_multiscale_attention_bayes_005(height, width, n_channels, alpha_1, a
     #up8_add = add([Conv2DTranspose(32*2, (2, 2), strides=(2, 2), padding='same')(mresblock7), mresblock2])
     #up8_dra = attention_up_and_concate(Conv2DTranspose(32*2, (2, 2), strides=(2, 2), padding='same', name='up8_dra')(mresblock7), mresblock2, filters = 32*2)
     up8 = attention_block_2d(Conv2DTranspose(32*2, (2, 2), strides=(2, 2), padding='same', name='up8')(mresblock7), mresblock2, filters = 32*2)
-    up8 = add([up8, mresblock2])#,
-    mresblock8 = MultiResBlock(32*2, up8)
+    up8 = concatenate([up8, mresblock2])
+    up8_1 = attention_block_2d(Conv2DTranspose(32*2, (2, 2), strides=(2, 2), padding='same', name='up8_1')(mresblock7), up8,filters=32*2)
+    mresblock8 = MultiResBlock(32*2, up8_1)
     #mresblock8 = rec_res_block(mresblock8, 105)
     conv_8_up = Conv2D(51, (3, 3), padding='same', activation='relu', name='conv_8_up')(mresblock8)
     #conv_8_up = rec_res_block(conv_8_up, 51)
@@ -505,7 +504,8 @@ def DRRMSAN_multiscale_attention_bayes_005(height, width, n_channels, alpha_1, a
     #up9_dra = attention_up_and_concate(Conv2DTranspose(32, (2, 2), strides=(2, 2), padding='same', name='up9_dra')(mresblock8), mresblock1, filters = 32)
     up9 = attention_block_2d(Conv2DTranspose(32, (2, 2), strides=(2, 2), padding='same', name='up9')(mresblock8), mresblock1, filters = 32)
     up9 = add([up9, mresblock1])#
-    mresblock9 = MultiResBlock(32, up9)
+    up9_1 = attention_block_2d(Conv2DTranspose(32, (2, 2), strides=(2, 2), padding='same', name='up9_1')(mresblock8), up9,filters=32)
+    mresblock9 = MultiResBlock(32, up9_1)
     #mresblock9 = rec_res_block(mresblock9, 51)
     conv_9_up = Conv2D(32, (3, 3), padding='same', activation='relu', name='conv_8_up')(mresblock9)
     #conv_9_up = rec_res_block(conv_9_up, 32)
