@@ -20,7 +20,7 @@ Dice Coefficient : 0.9157763993524386
 from tqdm import tqdm
 from keras.regularizers import l2
 import matplotlib.pyplot as plt
-from keras.layers import Input, Conv2D, MaxPooling2D, Conv2DTranspose, concatenate, BatchNormalization, Activation, add
+from keras.layers import Input, Conv2D, MaxPooling2D, Conv2DTranspose, concatenate, BatchNormalization, Activation, add, ZeroPadding2D
 from keras.models import Model, model_from_json
 from keras.optimizers import Adam
 from keras.layers.advanced_activations import ELU, LeakyReLU
@@ -240,7 +240,8 @@ def proposed_attention_block_2d(ms_conv, res_block, filters):
     output_ms_conv_res_block_rb = multiply([resampler_down_upper_rb, resampler_down_lower_rb])
     
     attn_outputs_mult = Activation('sigmoid')(multiply([output_ms_conv_res_block, output_ms_conv_res_block_rb]))
-    attn_output_1 = UpSampling2D(size=(8, 8))(attn_outputs_mult)
+    attn_output_1 = ZeroPadding2D(padding=(1,1))(UpSampling2D(size=(2, 2))(attn_outputs_mult))
+    
     attn_output = multiply([attn_output_1, theta_x_rb])
     return attn_output_1
 
