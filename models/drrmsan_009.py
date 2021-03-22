@@ -242,7 +242,8 @@ def proposed_attention_block_2d(ms_conv, res_block, filters):
     attn_outputs_mult = Activation('sigmoid')(multiply([output_ms_conv_res_block, output_ms_conv_res_block_rb]))
     attn_output_1 = Conv2D(filters, (3, 3), strides=(1, 1), padding='same', kernel_initializer = 'he_normal', kernel_regularizer=l2(1e-4))(ZeroPadding2D(padding=(1,1))(UpSampling2D(size=(2, 2))(attn_outputs_mult)))
 
-    attn_output = multiply([attn_output_1, res_block])
+    theta_x_rb = Conv2D(filters, (3, 3), strides=(1, 1), padding='same', kernel_initializer = 'he_normal', kernel_regularizer=l2(1e-4))(theta_x_rb)
+    attn_output = multiply([attn_output_1, theta_x_rb])
     return attn_output_1
 
 
@@ -447,7 +448,7 @@ def DRRMSAN_multiscale_attention_bayes_009(height, width, n_channels, alpha_1, a
 
     #up6_add =  add([Conv2DTranspose(32*8, (2, 2), strides=(2, 2), padding='same')(mresblock5), mresblock4])
     #up6_dra = attention_up_and_concate(Conv2DTranspose(32*8, (2, 2), strides=(2, 2), padding='same', name='up6_dra')(mresblock5), mresblock4,filters=32*8)
-    up6 = proposed_attention_block_2d(Conv2DTranspose(32*8, (2, 2), strides=(2, 2), padding='same', name='up6')(mresblock5), mresblock4,filters=64)
+    up6 = proposed_attention_block_2d(Conv2DTranspose(32*8, (2, 2), strides=(2, 2), padding='same', name='up6')(mresblock5), mresblock4,filters=256)
     
     up6 = add([up6, mresblock4])
     
