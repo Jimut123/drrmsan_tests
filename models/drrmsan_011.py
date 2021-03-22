@@ -211,8 +211,8 @@ def proposed_attention_block_2d(ms_conv, res_block, filters):
     mul_3x3_5x5_7x7 = Activation('relu')(multiply([mult_3x3_5x5, conv_7x7]))#multiply([mult_3x3_5x5, conv_7x7]))) # Subtract()([mult_3x3_5x5, conv_7x7])
     add_1x1_upper = Activation('relu')(Conv2D(filters, [2,  2], strides=[1, 1], padding='same')(add_3x3_5x5_7x7))
     mult_1x1_lower = Activation('relu')(Conv2D(filters, [2,  2], strides=[1, 1], padding='same')(mul_3x3_5x5_7x7))
-    resampler_down_upper = MaxPooling2D(pool_size=(8, 8), strides=(2, 2))(add_1x1_upper) #AveragePooling2D
-    resampler_down_lower = MaxPooling2D(pool_size=(8, 8), strides=(2, 2))(mult_1x1_lower)
+    resampler_down_upper = MaxPooling2D(pool_size=(6, 6), strides=(2, 2))(add_1x1_upper) #AveragePooling2D
+    resampler_down_lower = MaxPooling2D(pool_size=(6, 6), strides=(2, 2))(mult_1x1_lower)
     output_ms_conv_res_block = multiply([resampler_down_upper, resampler_down_lower])
 
     theta_x_rb = Conv2D(filters, [2,  2], strides=[1, 1], padding='same')(res_block)
@@ -229,8 +229,8 @@ def proposed_attention_block_2d(ms_conv, res_block, filters):
     mul_3x3_5x5_7x7_rb = Activation('relu')(multiply([mult_3x3_5x5_rb, conv_7x7_rb]))#multiply([mult_3x3_5x5_rb, conv_7x7_rb]))) # Subtract()([mult_3x3_5x5_rb, conv_7x7_rb])
     add_1x1_upper_rb = Activation('relu')(Conv2D(filters, [2,  2], strides=[1, 1], padding='same')(add_3x3_5x5_7x7_rb))
     mult_1x1_lower_rb = Activation('relu')(Conv2D(filters, [2, 2], strides=[1, 1], padding='same', )(mul_3x3_5x5_7x7_rb))
-    resampler_down_upper_rb = MaxPooling2D(pool_size=(8, 8), strides=(2, 2))(add_1x1_upper_rb)
-    resampler_down_lower_rb = MaxPooling2D(pool_size=(8, 8), strides=(2, 2))(mult_1x1_lower_rb)
+    resampler_down_upper_rb = MaxPooling2D(pool_size=(6, 6), strides=(2, 2))(add_1x1_upper_rb)
+    resampler_down_lower_rb = MaxPooling2D(pool_size=(6, 6), strides=(2, 2))(mult_1x1_lower_rb)
     output_ms_conv_res_block_rb = multiply([resampler_down_upper_rb, resampler_down_lower_rb])
     
     attn_outputs_mult = Activation('sigmoid')(multiply([output_ms_conv_res_block, output_ms_conv_res_block_rb]))
