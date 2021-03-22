@@ -1,7 +1,7 @@
 """
 All ReLU Partitioned
-Jacard Index : 0.7468027783419171
-Dice Coefficient : 0.8403665824915507
+Jacard Index : 0.7760437229698356
+Dice Coefficient : 0.865697183734859
 """
 
 #!/usr/bin/env python3
