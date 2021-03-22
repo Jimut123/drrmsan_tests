@@ -1,7 +1,17 @@
 """
 All ReLU Partitioned
+
 Jacard Index : 0.8107353878693242
 Dice Coefficient : 0.8919357163454343
+***********************************************
+Jacard Index improved from -1.0 to 0.8107353878693242
+***********************************************
+
+"""
+"""
+All ReLU Partitioned
+Jacard Index : 0.7760437229698356
+Dice Coefficient : 0.865697183734859
 """
 
 #!/usr/bin/env python3
@@ -505,4 +515,3 @@ def DRRMSAN_multiscale_attention_bayes_011(height, width, n_channels, alpha_1, a
     model = Model(inputs=[inputs], outputs=[out6, out7, out8, out9, out10])
 
     return model
-
