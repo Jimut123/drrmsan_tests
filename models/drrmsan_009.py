@@ -240,7 +240,7 @@ def proposed_attention_block_2d(ms_conv, res_block, filters):
     output_ms_conv_res_block_rb = multiply([resampler_down_upper_rb, resampler_down_lower_rb])
     
     attn_outputs_mult = Activation('sigmoid')(multiply([output_ms_conv_res_block, output_ms_conv_res_block_rb]))
-    attn_output_1 = UpSampling2D(size=(4, 4), strides=(2, 2))(attn_outputs_mult)
+    attn_output_1 = UpSampling2D(size=(8, 8))(attn_outputs_mult)
     attn_output = multiply([attn_output_1, theta_x_rb])
     return attn_output_1
 
