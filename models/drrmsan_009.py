@@ -1,12 +1,7 @@
 """
 All ReLU Partitioned
-Jacard Index : 0.8213940119865862
-Dice Coefficient : 0.8999231742052493
-
-150 =>
-
-Jacard Index : 0.8495213177715515
-Dice Coefficient : 0.9157763993524386
+Jacard Index : 0.7229629258517263
+Dice Coefficient : 0.8288299499785499
 
 """
 
@@ -204,7 +199,7 @@ def proposed_attention_block_2d(ms_conv, res_block, filters):
     '''
 
     theta_x = Conv2D(filters, [1,  1], strides=[1, 1], padding='same')(ms_conv)
-    joint_conv_2x2 = Conv2D(filters, (3, 3), strides=(1, 1), padding='same', kernel_initializer = 'he_normal', kernel_regularizer=l2(1e-4))(theta_x)
+    joint_conv_2x2 = Conv2D(filters, (2, 2), strides=(1, 1), padding='same', kernel_initializer = 'he_normal', kernel_regularizer=l2(1e-4))(theta_x)
     conv_3x3 = SpatialDropout2D(0.5)(Activation('relu')(Conv2D(filters, (3, 3), strides=(1, 1), padding='same', kernel_initializer = 'he_normal', kernel_regularizer=l2(1e-4))(joint_conv_2x2)))
     conv_5x5 = Activation('relu')(Conv2D(filters, (3, 3), strides=(1, 1), padding='same', kernel_initializer = 'he_normal', kernel_regularizer=l2(1e-4))(joint_conv_2x2))
     conv_5x5 = SpatialDropout2D(0.5)(Activation('relu')(Conv2D(filters, (3, 3), strides=(1, 1), padding='same', kernel_initializer = 'he_normal', kernel_regularizer=l2(1e-4))(conv_5x5)))
@@ -222,7 +217,7 @@ def proposed_attention_block_2d(ms_conv, res_block, filters):
     output_ms_conv_res_block = multiply([resampler_down_upper, resampler_down_lower])
 
     theta_x_rb = Conv2D(filters, [1,  1], strides=[1, 1], padding='same')(res_block)
-    joint_conv_2x2_rb = Conv2D(filters, (3, 3), strides=(1, 1), padding='same', kernel_initializer = 'he_normal', kernel_regularizer=l2(1e-4))(theta_x_rb)
+    joint_conv_2x2_rb = Conv2D(filters, (2, 2), strides=(1, 1), padding='same', kernel_initializer = 'he_normal', kernel_regularizer=l2(1e-4))(theta_x_rb)
     conv_3x3_rb = SpatialDropout2D(0.5)(Activation('relu')(Conv2D(filters, (3, 3), strides=(1, 1), padding='same', kernel_initializer = 'he_normal', kernel_regularizer=l2(1e-4))(joint_conv_2x2_rb)))
     conv_5x5_rb = Activation('relu')(Conv2D(filters, (3, 3), strides=(1, 1), padding='same', kernel_initializer = 'he_normal', kernel_regularizer=l2(1e-4))(joint_conv_2x2_rb))
     conv_5x5_rb = SpatialDropout2D(0.5)(Activation('relu')(Conv2D(filters, (3, 3), strides=(1, 1), padding='same', kernel_initializer = 'he_normal', kernel_regularizer=l2(1e-4))(conv_5x5_rb)))
