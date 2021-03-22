@@ -240,7 +240,7 @@ def proposed_attention_block_2d(ms_conv, res_block, filters):
     output_ms_conv_res_block_rb = multiply([resampler_down_upper_rb, resampler_down_lower_rb])
     
     attn_outputs_mult = Activation('sigmoid')(multiply([output_ms_conv_res_block, output_ms_conv_res_block_rb]))
-    attn_output_1 = ZeroPadding2D(padding=(1,1))(UpSampling2D(size=(2, 2))(attn_outputs_mult))
+    attn_output_1 = Conv2D(filters, (3, 3), strides=(1, 1), padding='same', kernel_initializer = 'he_normal', kernel_regularizer=l2(1e-4))(ZeroPadding2D(padding=(1,1))(UpSampling2D(size=(2, 2))(attn_outputs_mult)))
 
     attn_output = multiply([attn_output_1, res_block])
     return attn_output_1
