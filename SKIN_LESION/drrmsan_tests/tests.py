@@ -36,7 +36,7 @@ from tensorflow.keras import backend as K
 
 import sys
 sys.path.insert(0, '../../')
-from models import DRRMSAN_multiscale_attention_bayes_010
+from models import DRRMSAN_multiscale_attention_bayes_011
 
 img_files = glob.glob('../trainx/*.bmp')
 msk_files = glob.glob('../trainy/*.bmp')
@@ -253,7 +253,7 @@ alpha_1 = 0.25
 alpha_2 = 0.25
 alpha_3 = 0.25
 alpha_4 = 0.25
-model = DRRMSAN_multiscale_attention_bayes_010(height=192, width=256, n_channels=3, alpha_1 = alpha_1, alpha_2 = alpha_2, alpha_3 = alpha_3, alpha_4 = alpha_4)
+model = DRRMSAN_multiscale_attention_bayes_011(height=192, width=256, n_channels=3, alpha_1 = alpha_1, alpha_2 = alpha_2, alpha_3 = alpha_3, alpha_4 = alpha_4)
 
 #model.compile(optimizer='adam', loss='binary_crossentropy', metrics=[dice_coef, jacard, 'accuracy'])
 from tensorflow.keras.metrics import Recall, Precision
@@ -264,9 +264,9 @@ model.compile(optimizer=Adam(learning_rate=1e-5), loss='binary_crossentropy', me
 
 saveModel(model)
 
-fp = open('models/log.txt','w')
+fp = open('models/log_attn_1_bothsides_skinleison.txt','w')
 fp.close()
-fp = open('models/best.txt','w')
+fp = open('models/best_attn_1_bothsides_skinleison.txt','w')
 fp.write('-1.0')
 fp.close()
 
