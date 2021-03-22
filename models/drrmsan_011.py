@@ -234,9 +234,9 @@ def proposed_attention_block_2d(ms_conv, res_block, filters):
     output_ms_conv_res_block_rb = multiply([resampler_down_upper_rb, resampler_down_lower_rb])
     
     attn_outputs_mult = Activation('sigmoid')(multiply([output_ms_conv_res_block, output_ms_conv_res_block_rb]))
-    attn_output_1 = Conv2D(filters, (6, 6), strides=(1, 1), padding='same')(ZeroPadding2D(padding=(1,1))(UpSampling2D(size=(2, 2))(attn_outputs_mult)))
+    attn_output_1 = Conv2D(filters, (3, 3), strides=(1, 1), padding='same')(ZeroPadding2D(padding=(1,1))(UpSampling2D(size=(2, 2))(attn_outputs_mult)))
 
-    theta_x_rb = Conv2D(filters, (6, 6), strides=(1, 1), padding='same')(theta_x_rb)
+    theta_x_rb = Conv2D(filters, (3, 3), strides=(1, 1), padding='same')(theta_x_rb)
     attn_output = multiply([attn_output_1, theta_x_rb])
     return attn_output_1
 
@@ -301,7 +301,7 @@ def rec_res_block(input_layer, filters, batch_normalization=False, kernel_size=[
 
 
 
-def DRRMSAN_multiscale_attention_bayes_011(height, width, n_channels, alpha_1, alpha_2, alpha_3, alpha_4):
+def DRRMSAN_multiscale_attention_bayes_010(height, width, n_channels, alpha_1, alpha_2, alpha_3, alpha_4):
     '''
     DRRMSAN Multiscale Attention Model
 
