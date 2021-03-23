@@ -191,11 +191,7 @@ def evaluateModel(model, X_test, Y_test, batchSize):
     with open("Output.txt", "w") as text_file:
         text_file.write("Jacard : {} Dice Coef : {} ".format(str(jacard), str(dice)))
     
-<<<<<<< HEAD
-    with open("Output_150_superconc.txt", "a") as text_file:
-=======
     with open("Output_20_sc_nominpooling.txt", "a") as text_file:
->>>>>>> fd6c4aebcd383b0ca55817e06c7eb7b0d26de883
         text_file.write("Jacard : {} Dice Coef : {}  \n".format(str(jacard), str(dice)))
 
     jaccard_index_list.append(jacard)
