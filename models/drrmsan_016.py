@@ -326,33 +326,19 @@ def DRRMSAN_multiscale_attention_bayes_016(height, width, n_channels, alpha_1, a
     inp_1_2I = AveragePooling2D(pool_size=(2, 2))(inputs)
     inp_1_2I_mxpool = MaxPooling2D(pool_size=(2, 2))(inputs)
     inp_1_2I_minpool = MinPooling2D(inputs, pool_size=(2,2), strides=(1,1))
-    """
-    tf.image.resize(
-              inputs, (int(height * 1/2), int(width * 1/2)), method=tf.image.ResizeMethod.BILINEAR, preserve_aspect_ratio=False,
-              antialias=False, name=None
-              )
-    """
+
+
     # 1/4 rth the original scale
     inp_1_4I = AveragePooling2D(pool_size=(2, 2))(inp_1_2I)
     inp_1_4I_mxpool = MaxPooling2D(pool_size=(2, 2))(inp_1_2I_mxpool)
     inp_1_4I_minpool = MinPooling2D(inp_1_2I_minpool, pool_size=(2,2), strides=(1,1))
     #inp_1_4I_minpool = MaxPooling2D(pool_size=(2, 2))(inp_1_2I_mxpool)
-    """
-    tf.image.resize(
-              inputs, (int(height * 1/4), int(width * 1/4)), method=tf.image.ResizeMethod.BILINEAR, preserve_aspect_ratio=False,
-              antialias=False, name=None
-              )
-    """
+
     # 1/8 th the original scale
     inp_1_8I = AveragePooling2D(pool_size=(2, 2))(inp_1_4I)
     inp_1_8I_mxpool = MaxPooling2D(pool_size=(2, 2))(inp_1_4I_mxpool)
     inp_1_8I_minpool = MinPooling2D(inp_1_4I_minpool, pool_size=(2,2), strides=(1,1))
-    """
-              tf.image.resize(
-              inputs, (int(height * 1/8), int(width * 1/8)), method=tf.image.ResizeMethod.BILINEAR, preserve_aspect_ratio=False,
-              antialias=False, name=None
-              )
-    """
+    
     # just pass through some conv and add
     # for adding to multi res block 2, 32 filters
     # use 50 - 50 
