@@ -1,6 +1,7 @@
 """
 Super More concentration continuation of drrmsan_020 with attention on both sides
 
+BAD NOT WORKING
 
 """
 #!/usr/bin/env python3
