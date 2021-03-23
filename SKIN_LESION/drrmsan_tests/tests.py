@@ -191,7 +191,7 @@ def evaluateModel(model, X_test, Y_test, batchSize):
     with open("Output.txt", "w") as text_file:
         text_file.write("Jacard : {} Dice Coef : {} ".format(str(jacard), str(dice)))
     
-    with open("Output_20_wod.txt", "a") as text_file:
+    with open("Output_20_wod_relur.txt", "a") as text_file:
         text_file.write("Jacard : {} Dice Coef : {}  \n".format(str(jacard), str(dice)))
 
     jaccard_index_list.append(jacard)
