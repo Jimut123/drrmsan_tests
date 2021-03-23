@@ -1,6 +1,9 @@
 """
 More concentration
 
+Jacard : 0.8335770935799408 Dice Coef : 0.9069775826840715  
+Jacard : 0.809160115634092 Dice Coef : 0.8904472669093171  
+Jacard : 0.8113880854744501 Dice Coef : 0.8926502071659723
 
 """
 #!/usr/bin/env python3
