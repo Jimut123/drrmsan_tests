@@ -257,7 +257,7 @@ def trainStep(model, X_train, Y_train, X_test, Y_test, epochs, batchSize):
 
 
 
-for i in range(20):
+for i in range(15):
     alpha_1 = 0.25
     alpha_2 = 0.25
     alpha_3 = 0.25
@@ -274,7 +274,7 @@ for i in range(20):
     fp = open('models/best_attn_1_bothsides_skinleison.txt','w')
     fp.write('-1.0')
     fp.close()
-    trainStep(model, X_train, Y_train, X_test, Y_test, epochs=5, batchSize=2)
+    trainStep(model, X_train, Y_train, X_test, Y_test, epochs=150, batchSize=2)
 
 
 
