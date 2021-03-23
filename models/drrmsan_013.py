@@ -1,20 +1,6 @@
 """
 All ReLU Partitioned
 
-Jacard Index : 0.8002113795561808
-Dice Coefficient : 0.8808539870746716
-***********************************************
-Jacard Index improved from -1.0 to 0.8002113795561808
-***********************************************
-
-
-
-
-Jacard Index : 0.860212890233351
-Dice Coefficient : 0.92249219625816
-***********************************************
-Jacard Index improved from -1.0 to 0.860212890233351
-***********************************************
 
 """
 #!/usr/bin/env python3
@@ -210,7 +196,7 @@ def proposed_attention_block_2d(ms_conv, res_block, filters):
         [keras layer] -- [output layer]
     '''
 
-    theta_x = Conv2D(filters, [2,  2], strides=[1, 1], padding='same')(ms_conv)
+    theta_x = Conv2D(filters, [1,  1], strides=[1, 1], padding='same')(ms_conv)
     joint_conv_2x2 = Conv2D(filters, (2, 2), strides=(1, 1), padding='same')(theta_x)
     conv_3x3 = SpatialDropout2D(0.5)(Activation('relu')(Conv2D(filters, (3, 3), strides=(1, 1), padding='same')(joint_conv_2x2)))
     conv_5x5 = Activation('relu')(Conv2D(filters, (3, 3), strides=(1, 1), padding='same')(joint_conv_2x2))
@@ -228,7 +214,7 @@ def proposed_attention_block_2d(ms_conv, res_block, filters):
     resampler_down_lower = MaxPooling2D(pool_size=(9, 9), strides=(2, 2))(mult_1x1_lower)
     output_ms_conv_res_block = multiply([resampler_down_upper, resampler_down_lower])
 
-    theta_x_rb = Conv2D(filters, [2,  2], strides=[1, 1], padding='same')(res_block)
+    theta_x_rb = Conv2D(filters, [1,  1], strides=[1, 1], padding='same')(res_block)
     joint_conv_2x2_rb = Conv2D(filters, (2, 2), strides=(1, 1), padding='same')(theta_x_rb)
     conv_3x3_rb = SpatialDropout2D(0.5)(Activation('relu')(Conv2D(filters, (3, 3), strides=(1, 1), padding='same')(joint_conv_2x2_rb)))
     conv_5x5_rb = Activation('relu')(Conv2D(filters, (3, 3), strides=(1, 1), padding='same')(joint_conv_2x2_rb))
@@ -314,7 +300,7 @@ def rec_res_block(input_layer, filters, batch_normalization=False, kernel_size=[
 
 
 
-def DRRMSAN_multiscale_attention_bayes_012(height, width, n_channels, alpha_1, alpha_2, alpha_3, alpha_4):
+def DRRMSAN_multiscale_attention_bayes_013(height, width, n_channels, alpha_1, alpha_2, alpha_3, alpha_4):
     '''
     DRRMSAN Multiscale Attention Model
 
