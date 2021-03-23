@@ -1,9 +1,6 @@
 """
-Super More concentration
+Super More concentration with no min pooling, and 50% other stuffs
 
-Jacard : 0.8570445905898658 Dice Coef : 0.9212083878790336  
-Jacard : 0.8480396852016531 Dice Coef : 0.912858371940996  
-Jacard : 0.8738996953285716 Dice Coef : 0.931306604175778
 
 """
 #!/usr/bin/env python3
@@ -305,7 +302,7 @@ def rec_res_block(input_layer, filters, batch_normalization=False, kernel_size=[
 
 
 
-def DRRMSAN_multiscale_attention_bayes_017(height, width, n_channels, alpha_1, alpha_2, alpha_3, alpha_4):
+def DRRMSAN_multiscale_attention_bayes_018(height, width, n_channels, alpha_1, alpha_2, alpha_3, alpha_4):
     '''
     DRRMSAN Multiscale Attention Model
 
@@ -352,8 +349,8 @@ def DRRMSAN_multiscale_attention_bayes_017(height, width, n_channels, alpha_1, a
 
     total_1_2I = 51
     per_mx_pool_1_2I = int(0.40 * total_1_2I)
-    per_avg_pool_1_2I = int(0.30 * total_1_2I)
-    per_min_pool_1_2I = int(0.05 * total_1_2I)
+    per_avg_pool_1_2I = int(0.10 * total_1_2I)
+    per_min_pool_1_2I = int(0.00 * total_1_2I)
     per_down_1_2I = int(total_1_2I - (per_mx_pool_1_2I + per_avg_pool_1_2I + per_min_pool_1_2I))
 
     mrb2_1_2I_avgpool = Conv2D(per_avg_pool_1_2I, (3, 3), strides=(1,1), padding='same', name='side_left_1_avgpool')(inp_1_2I) 
@@ -362,8 +359,8 @@ def DRRMSAN_multiscale_attention_bayes_017(height, width, n_channels, alpha_1, a
 
     total_1_4I = 105
     per_mx_pool_1_4I = int(0.40 * total_1_4I)
-    per_avg_pool_1_4I = int(0.30 * total_1_4I)
-    per_min_pool_1_4I = int(0.05 * total_1_4I)
+    per_avg_pool_1_4I = int(0.10 * total_1_4I)
+    per_min_pool_1_4I = int(0.00 * total_1_4I)
     # 52% to the down layer
     per_down_1_4I = int(total_1_4I - (per_mx_pool_1_4I + per_avg_pool_1_4I + per_min_pool_1_4I))
 
@@ -373,8 +370,8 @@ def DRRMSAN_multiscale_attention_bayes_017(height, width, n_channels, alpha_1, a
 
     total_1_8I = 212
     per_mx_pool_1_8I = int(0.40 * total_1_8I)
-    per_avg_pool_1_8I = int(0.30 * total_1_8I)
-    per_min_pool_1_8I = int(0.05 * total_1_8I)
+    per_avg_pool_1_8I = int(0.10 * total_1_8I)
+    per_min_pool_1_8I = int(0.00 * total_1_8I)
     per_down_1_8I = int(total_1_8I - (per_mx_pool_1_8I + per_avg_pool_1_8I + per_min_pool_1_8I))
 
     mrb4_1_8I_avgpool = Conv2D(per_avg_pool_1_8I, (3, 3), strides=(1,1), padding='same', name='side_left_3_avgpool')(inp_1_8I)
