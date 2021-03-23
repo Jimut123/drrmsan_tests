@@ -1,11 +1,9 @@
 """
-Super More concentration with no min pooling, and 50% other stuffs
+Super More concentration
 
-Not good:
-Jacard : 0.8060015135665983 Dice Coef : 0.8898353214035923  
-Jacard : 0.8076276112957164 Dice Coef : 0.8906917168637156  
-Jacard : 0.8034346501536149 Dice Coef : 0.8883660589923104  
-Jacard : 0.818525460938748 Dice Coef : 0.8962735584377125
+Jacard : 0.8570445905898658 Dice Coef : 0.9212083878790336  
+Jacard : 0.8480396852016531 Dice Coef : 0.912858371940996  
+Jacard : 0.8738996953285716 Dice Coef : 0.931306604175778
 
 """
 #!/usr/bin/env python3
@@ -307,7 +305,7 @@ def rec_res_block(input_layer, filters, batch_normalization=False, kernel_size=[
 
 
 
-def DRRMSAN_multiscale_attention_bayes_018(height, width, n_channels, alpha_1, alpha_2, alpha_3, alpha_4):
+def DRRMSAN_multiscale_attention_bayes_019(height, width, n_channels, alpha_1, alpha_2, alpha_3, alpha_4):
     '''
     DRRMSAN Multiscale Attention Model
 
@@ -353,35 +351,35 @@ def DRRMSAN_multiscale_attention_bayes_018(height, width, n_channels, alpha_1, a
     # Bayesian Optimization
 
     total_1_2I = 51
-    per_mx_pool_1_2I = int(0.40 * total_1_2I)
-    per_avg_pool_1_2I = int(0.10 * total_1_2I)
-    #per_min_pool_1_2I = int(0.00 * total_1_2I)
-    per_down_1_2I = int(total_1_2I - (per_mx_pool_1_2I + per_avg_pool_1_2I ))#+ per_min_pool_1_2I))
+    per_mx_pool_1_2I = int(0.30 * total_1_2I)
+    per_avg_pool_1_2I = int(0.30 * total_1_2I)
+    per_min_pool_1_2I = int(0.1 * total_1_2I)
+    per_down_1_2I = int(total_1_2I - (per_mx_pool_1_2I + per_avg_pool_1_2I + per_min_pool_1_2I))
 
     mrb2_1_2I_avgpool = Conv2D(per_avg_pool_1_2I, (3, 3), strides=(1,1), padding='same', name='side_left_1_avgpool')(inp_1_2I) 
     mrb2_1_2I_mxpool = Conv2D(per_mx_pool_1_2I, (3, 3), strides=(1,1), padding='same', name='side_left_1_mxpool')(inp_1_2I_mxpool)
-    #mrb2_1_2I_minpool = Conv2D(per_min_pool_1_2I, (3, 3), strides=(1,1), padding='same', name='side_left_1_minpool')(inp_1_2I_minpool)
+    mrb2_1_2I_minpool = Conv2D(per_min_pool_1_2I, (3, 3), strides=(1,1), padding='same', name='side_left_1_minpool')(inp_1_2I_minpool)
 
     total_1_4I = 105
-    per_mx_pool_1_4I = int(0.40 * total_1_4I)
-    per_avg_pool_1_4I = int(0.10 * total_1_4I)
-    #per_min_pool_1_4I = int(0.00 * total_1_4I)
+    per_mx_pool_1_4I = int(0.30 * total_1_4I)
+    per_avg_pool_1_4I = int(0.30 * total_1_4I)
+    per_min_pool_1_4I = int(0.1 * total_1_4I)
     # 52% to the down layer
-    per_down_1_4I = int(total_1_4I - (per_mx_pool_1_4I + per_avg_pool_1_4I )) #+ per_min_pool_1_4I))
+    per_down_1_4I = int(total_1_4I - (per_mx_pool_1_4I + per_avg_pool_1_4I + per_min_pool_1_4I))
 
     mrb3_1_4I_avgpool = Conv2D(per_avg_pool_1_4I, (3, 3), strides=(1,1), padding='same', name='side_left_2_avgpool')(inp_1_4I) 
     mrb3_1_4I_mxpool = Conv2D(per_mx_pool_1_4I, (3, 3), strides=(1,1), padding='same', name='side_left_2_mxpool')(inp_1_4I_mxpool) 
-    #mrb3_1_4I_minpool = Conv2D(per_min_pool_1_4I, (3, 3), strides=(1,1), padding='same', name='side_left_2_minpool')(inp_1_4I_minpool) 
+    mrb3_1_4I_minpool = Conv2D(per_min_pool_1_4I, (3, 3), strides=(1,1), padding='same', name='side_left_2_minpool')(inp_1_4I_minpool) 
 
     total_1_8I = 212
-    per_mx_pool_1_8I = int(0.40 * total_1_8I)
-    per_avg_pool_1_8I = int(0.10 * total_1_8I)
-    #per_min_pool_1_8I = int(0.00 * total_1_8I)
-    per_down_1_8I = int(total_1_8I - (per_mx_pool_1_8I + per_avg_pool_1_8I )) #+ per_min_pool_1_8I))
+    per_mx_pool_1_8I = int(0.30 * total_1_8I)
+    per_avg_pool_1_8I = int(0.30 * total_1_8I)
+    per_min_pool_1_8I = int(0.1 * total_1_8I)
+    per_down_1_8I = int(total_1_8I - (per_mx_pool_1_8I + per_avg_pool_1_8I + per_min_pool_1_8I))
 
     mrb4_1_8I_avgpool = Conv2D(per_avg_pool_1_8I, (3, 3), strides=(1,1), padding='same', name='side_left_3_avgpool')(inp_1_8I)
     mrb4_1_8I_mxpool = Conv2D(per_mx_pool_1_8I, (3, 3), strides=(1,1), padding='same', name='side_left_3_mxpool')(inp_1_8I_mxpool)
-    #mrb4_1_8I_minpool = Conv2D(per_min_pool_1_8I, (3, 3), strides=(1,1), padding='same', name='side_left_3_minpool')(inp_1_8I_minpool)
+    mrb4_1_8I_minpool = Conv2D(per_min_pool_1_8I, (3, 3), strides=(1,1), padding='same', name='side_left_3_minpool')(inp_1_8I_minpool)
 
 
     #==================================================================
@@ -391,7 +389,7 @@ def DRRMSAN_multiscale_attention_bayes_018(height, width, n_channels, alpha_1, a
     pool1 = MaxPooling2D(pool_size=(2, 2))(mresblock1)
     #===================
     pool1 = Conv2D(per_down_1_2I, (3, 3), strides=(1,1), padding='same')(pool1)
-    left_block_1 = concatenate([pool1, mrb2_1_2I_avgpool, mrb2_1_2I_mxpool])#, mrb2_1_2I_minpool])
+    left_block_1 = concatenate([pool1, mrb2_1_2I_avgpool, mrb2_1_2I_mxpool, mrb2_1_2I_minpool])
     #left_block_1 = rec_res_block(left_block_1, total_1_2I)
     #pool1 = multiply([pool1, mrb2_1_2I])
     #pool1 = proposed_attention_block_2d(pool1, mresblock1,filters=51)
@@ -404,7 +402,7 @@ def DRRMSAN_multiscale_attention_bayes_018(height, width, n_channels, alpha_1, a
     pool2 = MaxPooling2D(pool_size=(2, 2))(mresblock2)
     #===================
     pool2 = Conv2D(per_down_1_4I, (3, 3), strides=(1,1), padding='same')(pool2)
-    left_block_2 = concatenate([pool2, mrb3_1_4I_avgpool, mrb3_1_4I_mxpool])#, mrb3_1_4I_minpool])
+    left_block_2 = concatenate([pool2, mrb3_1_4I_avgpool, mrb3_1_4I_mxpool, mrb3_1_4I_minpool])
     #left_block_2 = rec_res_block(left_block_2, total_1_4I)
     #pool2 = multiply([pool2, mrb3_1_4I])
     #pool2 = proposed_attention_block_2d(pool2, mresblock2,filters=105)
@@ -416,7 +414,7 @@ def DRRMSAN_multiscale_attention_bayes_018(height, width, n_channels, alpha_1, a
     pool3 = MaxPooling2D(pool_size=(2, 2))(mresblock3)
     #===================
     pool3 = Conv2D(per_down_1_8I, (3, 3), strides=(1,1), padding='same')(pool3)
-    left_block_3 = concatenate([pool3, mrb4_1_8I_avgpool, mrb4_1_8I_mxpool]) #, mrb4_1_8I_minpool])
+    left_block_3 = concatenate([pool3, mrb4_1_8I_avgpool, mrb4_1_8I_mxpool, mrb4_1_8I_minpool])
     #left_block_3 = rec_res_block(left_block_3, total_1_8I)
     #pool3 = multiply([pool3, mrb4_1_8I])
     #pool3 = proposed_attention_block_2d(pool3, mresblock3,filters=212)

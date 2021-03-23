@@ -36,7 +36,7 @@ from tensorflow.keras import backend as K
 
 import sys
 sys.path.insert(0, '../../')
-from models import DRRMSAN_multiscale_attention_bayes_018
+from models import DRRMSAN_multiscale_attention_bayes_019
 
 img_files = glob.glob('../trainx/*.bmp')
 msk_files = glob.glob('../trainy/*.bmp')
@@ -259,7 +259,7 @@ for i in range(20):
     alpha_2 = 0.25
     alpha_3 = 0.25
     alpha_4 = 0.25
-    model = DRRMSAN_multiscale_attention_bayes_018(height=192, width=256, n_channels=3, alpha_1 = alpha_1, alpha_2 = alpha_2, alpha_3 = alpha_3, alpha_4 = alpha_4)
+    model = DRRMSAN_multiscale_attention_bayes_019(height=192, width=256, n_channels=3, alpha_1 = alpha_1, alpha_2 = alpha_2, alpha_3 = alpha_3, alpha_4 = alpha_4)
 
     #model.compile(optimizer='adam', loss='binary_crossentropy', metrics=[dice_coef, jacard, 'accuracy'])
     from tensorflow.keras.metrics import Recall, Precision
