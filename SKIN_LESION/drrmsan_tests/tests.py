@@ -274,6 +274,6 @@ fp.write('-1.0')
 fp.close()
 
 for i in range(20):
-    trainStep(model, X_train, Y_train, X_test, Y_test, epochs=20, batchSize=2)
+    trainStep(model, X_train, Y_train, X_test, Y_test, epochs=5, batchSize=2)
 
 
