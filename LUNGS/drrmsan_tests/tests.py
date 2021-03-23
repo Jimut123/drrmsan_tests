@@ -36,7 +36,7 @@ from tensorflow.keras import backend as K
 
 import sys
 sys.path.insert(0, '../../')
-from models import DRRMSAN_multiscale_attention_bayes_012
+from models import DRRMSAN_multiscale_attention_bayes_013
 
 
 img_files = next(os.walk('../2d_images/'))[2]
@@ -255,7 +255,7 @@ alpha_1 = 0.25
 alpha_2 = 0.25
 alpha_3 = 0.25
 alpha_4 = 0.25
-model = DRRMSAN_multiscale_attention_bayes_012(height=256, width=256, n_channels=3, alpha_1 = alpha_1, alpha_2 = alpha_2, alpha_3 = alpha_3, alpha_4 = alpha_4)
+model = DRRMSAN_multiscale_attention_bayes_013(height=256, width=256, n_channels=3, alpha_1 = alpha_1, alpha_2 = alpha_2, alpha_3 = alpha_3, alpha_4 = alpha_4)
 
 #model.compile(optimizer='adam', loss='binary_crossentropy', metrics=[dice_coef, jacard, 'accuracy'])
 from tensorflow.keras.metrics import Recall, Precision

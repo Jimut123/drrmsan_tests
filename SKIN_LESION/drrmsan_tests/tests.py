@@ -36,7 +36,7 @@ from tensorflow.keras import backend as K
 
 import sys
 sys.path.insert(0, '../../')
-from models import DRRMSAN_multiscale_attention_bayes_012
+from models import DRRMSAN_multiscale_attention_bayes_013
 
 img_files = glob.glob('../trainx/*.bmp')
 msk_files = glob.glob('../trainy/*.bmp')
@@ -190,6 +190,9 @@ def evaluateModel(model, X_test, Y_test, batchSize):
     print('Dice Coefficient : '+str(dice))
     with open("Output.txt", "w") as text_file:
         text_file.write("Jacard : {} Dice Coef : {} ".format(str(jacard), str(dice)))
+    
+    with open("Output_20.txt", "a") as text_file:
+        text_file.write("Jacard : {} Dice Coef : {}  \n".format(str(jacard), str(dice)))
 
     jaccard_index_list.append(jacard)
     dice_coeff_list.append(dice)
@@ -253,7 +256,7 @@ alpha_1 = 0.25
 alpha_2 = 0.25
 alpha_3 = 0.25
 alpha_4 = 0.25
-model = DRRMSAN_multiscale_attention_bayes_012(height=192, width=256, n_channels=3, alpha_1 = alpha_1, alpha_2 = alpha_2, alpha_3 = alpha_3, alpha_4 = alpha_4)
+model = DRRMSAN_multiscale_attention_bayes_013(height=192, width=256, n_channels=3, alpha_1 = alpha_1, alpha_2 = alpha_2, alpha_3 = alpha_3, alpha_4 = alpha_4)
 
 #model.compile(optimizer='adam', loss='binary_crossentropy', metrics=[dice_coef, jacard, 'accuracy'])
 from tensorflow.keras.metrics import Recall, Precision
@@ -270,6 +273,7 @@ fp = open('models/best_attn_1_bothsides_skinleison.txt','w')
 fp.write('-1.0')
 fp.close()
 
-trainStep(model, X_train, Y_train, X_test, Y_test, epochs=20, batchSize=2)
+for i in range(20):
+    trainStep(model, X_train, Y_train, X_test, Y_test, epochs=20, batchSize=2)
 
 
