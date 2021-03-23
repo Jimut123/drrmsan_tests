@@ -1,9 +1,6 @@
 """
-More concentration
+Super More concentration
 
-Jacard : 0.8335770935799408 Dice Coef : 0.9069775826840715  
-Jacard : 0.809160115634092 Dice Coef : 0.8904472669093171  
-Jacard : 0.8113880854744501 Dice Coef : 0.8926502071659723
 
 """
 #!/usr/bin/env python3
@@ -213,8 +210,8 @@ def proposed_attention_block_2d(ms_conv, res_block, filters):
     mul_3x3_5x5_7x7 = Activation('relu')(multiply([mult_3x3_5x5, conv_7x7]))#multiply([mult_3x3_5x5, conv_7x7]))) # Subtract()([mult_3x3_5x5, conv_7x7])
     add_1x1_upper = Activation('relu')(Conv2D(filters, [2,  2], strides=[1, 1], padding='same')(add_3x3_5x5_7x7))
     mult_1x1_lower = Activation('relu')(Conv2D(filters, [2,  2], strides=[1, 1], padding='same')(mul_3x3_5x5_7x7))
-    resampler_down_upper = MaxPooling2D(pool_size=(10, 10), strides=(2, 2))(add_1x1_upper) #AveragePooling2D
-    resampler_down_lower = MaxPooling2D(pool_size=(10, 10), strides=(2, 2))(mult_1x1_lower)
+    resampler_down_upper = MaxPooling2D(pool_size=(12, 12), strides=(2, 2))(add_1x1_upper) #AveragePooling2D
+    resampler_down_lower = MaxPooling2D(pool_size=(12, 12), strides=(2, 2))(mult_1x1_lower)
     output_ms_conv_res_block = multiply([resampler_down_upper, resampler_down_lower])
 
     theta_x_rb = Conv2D(filters, [2,  2], strides=[1, 1], padding='same')(res_block)
@@ -231,12 +228,12 @@ def proposed_attention_block_2d(ms_conv, res_block, filters):
     mul_3x3_5x5_7x7_rb = Activation('relu')(multiply([mult_3x3_5x5_rb, conv_7x7_rb]))#multiply([mult_3x3_5x5_rb, conv_7x7_rb]))) # Subtract()([mult_3x3_5x5_rb, conv_7x7_rb])
     add_1x1_upper_rb = Activation('relu')(Conv2D(filters, [2,  2], strides=[1, 1], padding='same')(add_3x3_5x5_7x7_rb))
     mult_1x1_lower_rb = Activation('relu')(Conv2D(filters, [2, 2], strides=[1, 1], padding='same', )(mul_3x3_5x5_7x7_rb))
-    resampler_down_upper_rb = MaxPooling2D(pool_size=(10, 10), strides=(2, 2))(add_1x1_upper_rb)
-    resampler_down_lower_rb = MaxPooling2D(pool_size=(10, 10), strides=(2, 2))(mult_1x1_lower_rb)
+    resampler_down_upper_rb = MaxPooling2D(pool_size=(12, 12), strides=(2, 2))(add_1x1_upper_rb)
+    resampler_down_lower_rb = MaxPooling2D(pool_size=(12, 12), strides=(2, 2))(mult_1x1_lower_rb)
     output_ms_conv_res_block_rb = multiply([resampler_down_upper_rb, resampler_down_lower_rb])
     
     attn_outputs_mult = Activation('sigmoid')(multiply([output_ms_conv_res_block, output_ms_conv_res_block_rb]))
-    attn_output_1 = Conv2D(filters, (3, 3), strides=(1, 1), padding='same')(ZeroPadding2D(padding=(4,4))(UpSampling2D(size=(2, 2))(attn_outputs_mult)))
+    attn_output_1 = Conv2D(filters, (3, 3), strides=(1, 1), padding='same')(ZeroPadding2D(padding=(5,5))(UpSampling2D(size=(2, 2))(attn_outputs_mult)))
 
     theta_x_rb = Conv2D(filters, (3, 3), strides=(1, 1), padding='same')(theta_x_rb)
     attn_output = multiply([attn_output_1, theta_x_rb])
@@ -305,7 +302,7 @@ def rec_res_block(input_layer, filters, batch_normalization=False, kernel_size=[
 
 
 
-def DRRMSAN_multiscale_attention_bayes_016(height, width, n_channels, alpha_1, alpha_2, alpha_3, alpha_4):
+def DRRMSAN_multiscale_attention_bayes_017(height, width, n_channels, alpha_1, alpha_2, alpha_3, alpha_4):
     '''
     DRRMSAN Multiscale Attention Model
 
