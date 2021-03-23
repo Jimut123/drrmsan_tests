@@ -1,6 +1,10 @@
 """
 ReLU reduced
 
+Jacard : 0.7954283647307974 Dice Coef : 0.8803615639434298  
+Jacard : 0.8181688534070448 Dice Coef : 0.8978605099158138  
+Jacard : 0.8133815309302627 Dice Coef : 0.8950881334358922 
+
 """
 #!/usr/bin/env python3
 # encoding: utf-8
