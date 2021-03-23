@@ -38,13 +38,13 @@ import sys
 sys.path.insert(0, '../../')
 from models import DRRMSAN_multiscale_attention_bayes_012
 
-img_files = glob.glob('../trainx/*.bmp')
-msk_files = glob.glob('../trainy/*.bmp')
+
+img_files = next(os.walk('../2d_images/'))[2]
+msk_files = next(os.walk('../2d_masks/'))[2]
 
 img_files.sort()
 msk_files.sort()
-print(img_files[:10])
-print(msk_files[:10])
+
 print(len(img_files))
 print(len(msk_files))
 
