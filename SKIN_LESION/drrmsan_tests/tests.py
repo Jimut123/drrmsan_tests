@@ -263,23 +263,15 @@ for i in range(20):
 
     #model.compile(optimizer='adam', loss='binary_crossentropy', metrics=[dice_coef, jacard, 'accuracy'])
     from tensorflow.keras.metrics import Recall, Precision
-
-
     # 4.55e-6
     model.compile(optimizer=Adam(learning_rate=1e-5), loss='binary_crossentropy', metrics=[dice_coef, jacard, Recall(), Precision() ,'accuracy'])
-
-<<<<<<< HEAD
-for i in range(20):
-    trainStep(model, X_train, Y_train, X_test, Y_test, epochs=5, batchSize=2)
-=======
     saveModel(model)
-
     fp = open('models/log_attn_1_bothsides_skinleison.txt','w')
     fp.close()
     fp = open('models/best_attn_1_bothsides_skinleison.txt','w')
     fp.write('-1.0')
     fp.close()
-    trainStep(model, X_train, Y_train, X_test, Y_test, epochs=20, batchSize=2)
->>>>>>> 72d2da639e29a73dee8de9ab0c0c6402bffcbbd3
+    trainStep(model, X_train, Y_train, X_test, Y_test, epochs=5, batchSize=2)
+
 
 
