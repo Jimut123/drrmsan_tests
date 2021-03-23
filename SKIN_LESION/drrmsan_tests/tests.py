@@ -252,28 +252,34 @@ def trainStep(model, X_train, Y_train, X_test, Y_test, epochs, batchSize):
 
     return model
 
-alpha_1 = 0.25
-alpha_2 = 0.25
-alpha_3 = 0.25
-alpha_4 = 0.25
-model = DRRMSAN_multiscale_attention_bayes_013(height=192, width=256, n_channels=3, alpha_1 = alpha_1, alpha_2 = alpha_2, alpha_3 = alpha_3, alpha_4 = alpha_4)
 
-#model.compile(optimizer='adam', loss='binary_crossentropy', metrics=[dice_coef, jacard, 'accuracy'])
-from tensorflow.keras.metrics import Recall, Precision
-
-
-# 4.55e-6
-model.compile(optimizer=Adam(learning_rate=1e-5), loss='binary_crossentropy', metrics=[dice_coef, jacard, Recall(), Precision() ,'accuracy'])
-
-saveModel(model)
-
-fp = open('models/log_attn_1_bothsides_skinleison.txt','w')
-fp.close()
-fp = open('models/best_attn_1_bothsides_skinleison.txt','w')
-fp.write('-1.0')
-fp.close()
 
 for i in range(20):
+    alpha_1 = 0.25
+    alpha_2 = 0.25
+    alpha_3 = 0.25
+    alpha_4 = 0.25
+    model = DRRMSAN_multiscale_attention_bayes_013(height=192, width=256, n_channels=3, alpha_1 = alpha_1, alpha_2 = alpha_2, alpha_3 = alpha_3, alpha_4 = alpha_4)
+
+    #model.compile(optimizer='adam', loss='binary_crossentropy', metrics=[dice_coef, jacard, 'accuracy'])
+    from tensorflow.keras.metrics import Recall, Precision
+
+
+    # 4.55e-6
+    model.compile(optimizer=Adam(learning_rate=1e-5), loss='binary_crossentropy', metrics=[dice_coef, jacard, Recall(), Precision() ,'accuracy'])
+
+<<<<<<< HEAD
+for i in range(20):
     trainStep(model, X_train, Y_train, X_test, Y_test, epochs=5, batchSize=2)
+=======
+    saveModel(model)
+
+    fp = open('models/log_attn_1_bothsides_skinleison.txt','w')
+    fp.close()
+    fp = open('models/best_attn_1_bothsides_skinleison.txt','w')
+    fp.write('-1.0')
+    fp.close()
+    trainStep(model, X_train, Y_train, X_test, Y_test, epochs=20, batchSize=2)
+>>>>>>> 72d2da639e29a73dee8de9ab0c0c6402bffcbbd3
 
 
