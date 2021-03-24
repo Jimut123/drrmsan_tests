@@ -235,7 +235,7 @@ def proposed_attention_block_2d(ms_conv, res_block, filters):
     
     attn_outputs_mult = Activation('sigmoid')(multiply([output_ms_conv_res_block, output_ms_conv_res_block_rb]))
     attn_output_1 = Conv2D(filters, (3, 3), strides=(1, 1), padding='same')(ZeroPadding2D(padding=(5,5))(UpSampling2D(size=(2, 2))(attn_outputs_mult)))
-    
+
     return attn_output_1
 
 
@@ -347,8 +347,8 @@ def DRRMSAN_multiscale_attention_bayes_023(height, width, n_channels, alpha_1, a
     # Bayesian Optimization
 
     total_1_2I = 51
-    per_mx_pool_1_2I = int(0.01 * total_1_2I)
-    per_avg_pool_1_2I = int(0.01 * total_1_2I)
+    per_mx_pool_1_2I = int(0.05 * total_1_2I)
+    per_avg_pool_1_2I = int(0.05 * total_1_2I)
     per_min_pool_1_2I = int(0.48 * total_1_2I)
     per_down_1_2I = int(total_1_2I - (per_mx_pool_1_2I + per_avg_pool_1_2I + per_min_pool_1_2I))
 
@@ -357,8 +357,8 @@ def DRRMSAN_multiscale_attention_bayes_023(height, width, n_channels, alpha_1, a
     mrb2_1_2I_minpool = Conv2D(per_min_pool_1_2I, (3, 3), strides=(1,1), padding='same', name='side_left_1_minpool')(inp_1_2I_minpool)
 
     total_1_4I = 105
-    per_mx_pool_1_4I = int(0.01 * total_1_4I)
-    per_avg_pool_1_4I = int(0.01 * total_1_4I)
+    per_mx_pool_1_4I = int(0.05 * total_1_4I)
+    per_avg_pool_1_4I = int(0.05 * total_1_4I)
     per_min_pool_1_4I = int(0.48 * total_1_4I)
     # 52% to the down layer
     per_down_1_4I = int(total_1_4I - (per_mx_pool_1_4I + per_avg_pool_1_4I + per_min_pool_1_4I))
@@ -368,8 +368,8 @@ def DRRMSAN_multiscale_attention_bayes_023(height, width, n_channels, alpha_1, a
     mrb3_1_4I_minpool = Conv2D(per_min_pool_1_4I, (3, 3), strides=(1,1), padding='same', name='side_left_2_minpool')(inp_1_4I_minpool) 
 
     total_1_8I = 212
-    per_mx_pool_1_8I = int(0.01 * total_1_8I)
-    per_avg_pool_1_8I = int(0.01 * total_1_8I)
+    per_mx_pool_1_8I = int(0.05 * total_1_8I)
+    per_avg_pool_1_8I = int(0.05 * total_1_8I)
     per_min_pool_1_8I = int(0.48 * total_1_8I)
     per_down_1_8I = int(total_1_8I - (per_mx_pool_1_8I + per_avg_pool_1_8I + per_min_pool_1_8I))
 
