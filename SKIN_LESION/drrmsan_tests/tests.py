@@ -194,7 +194,7 @@ def evaluateModel(model, X_test, Y_test, batchSize):
     with open("Output.txt", "w") as text_file:
         text_file.write("Jacard : {} Dice Coef : {} ".format(str(jacard), str(dice)))
     
-    with open("Output_20_bsa_0017.txt", "a") as text_file:
+    with open("Output_21_mp30.txt", "a") as text_file:
         text_file.write("Jacard : {} Dice Coef : {}  \n".format(str(jacard), str(dice)))
 
     jaccard_index_list.append(jacard)
@@ -274,7 +274,7 @@ for i in range(20):
     fp = open('models/best_attn_1_bothsides_skinleison.txt','w')
     fp.write('-1.0')
     fp.close()
-    trainStep(model, X_train, Y_train, X_test, Y_test, epochs=20, batchSize=2)
+    trainStep(model, X_train, Y_train, X_test, Y_test, epochs=150, batchSize=2)
 
 
 
