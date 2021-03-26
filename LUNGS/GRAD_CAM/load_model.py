@@ -29,6 +29,8 @@ from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from tensorflow.keras.metrics import Recall, Precision
 from tensorflow.keras import backend as K
 
+from GRAD_CAM import get_img_array, make_gradcam_heatmap, get_jet_img
+
 import sys
 sys.path.insert(0, '../../')
 from models import DRRMSAN_multiscale_attention_bayes_022
@@ -38,11 +40,42 @@ alpha_2 = 0.25
 alpha_3 = 0.25
 alpha_4 = 0.25
 model = DRRMSAN_multiscale_attention_bayes_022(height=256, width=256, n_channels=3, alpha_1 = alpha_1, alpha_2 = alpha_2, alpha_3 = alpha_3, alpha_4 = alpha_4)
-from tensorflow.keras.utils import  plot_model as pm  #plotting the model structure
-pm(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True,dpi=60)
+# from tensorflow.keras.utils import  plot_model as pm  #plotting the model structure
+# pm(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True,dpi=60)
 
 from tensorflow import keras
 # model = load_model('modelW_drrmsan_lungs.h5')
 model.load_weights('modelW_drrmsan_lungs.h5')
 
 model.summary()
+
+img = cv2.imread('ID_0000_Z_0142.tif',cv2.IMREAD_COLOR)
+img = cv2.resize(img,(256,256))
+
+img_array = np.expand_dims(img, axis=0)
+# plt.imshow(img)
+# plt.show()
+print(img_array.shape)
+# Make model
+# model = model_builder(weights="imagenet")
+
+# Print what the top predicted class is
+preds = model.predict(img_array)
+yp = np.round(preds,0)
+yp = yp[4]
+# print("Predicted:", decode_predictions(preds, top=1)[0])
+print("preds : ", preds)
+
+                                      
+
+
+last_conv_layer_name = "add_38"
+
+
+
+# Generate class activation heatmap
+heatmap = make_gradcam_heatmap(img_array, model, last_conv_layer_name)
+print("---------",heatmap.shape)
+# Display heatmap
+plt.matshow(heatmap)
+plt.show()
