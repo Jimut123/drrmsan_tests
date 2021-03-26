@@ -49,7 +49,9 @@ model.load_weights('modelW_drrmsan_lungs.h5')
 
 model.summary()
 
+# img = cv2.imread('img_lungs.png',cv2.IMREAD_COLOR)
 img = cv2.imread('ID_0000_Z_0142.tif',cv2.IMREAD_COLOR)
+plt.imsave('lungs_img_attention.png', img)
 img = cv2.resize(img,(256,256))
 
 img_array = np.expand_dims(img, axis=0)
@@ -68,14 +70,36 @@ print("preds : ", preds)
 
                                       
 
+lclns = ['activation_54','activation_73','activation_5','activation_111']
+last_conv_layer_name = "activation_111"
 
-last_conv_layer_name = "add_38"
-
+# activation_54 -- 
+# activation_73 --
+# activation_5 --
+# activation_92  xx
+# activation_111 --
+# activation_10 xx
 
 
 # Generate class activation heatmap
-heatmap = make_gradcam_heatmap(img_array, model, last_conv_layer_name)
-print("---------",heatmap.shape)
-# Display heatmap
-plt.matshow(heatmap)
-plt.show()
+image_no = 1
+for item in lclns:
+    last_conv_layer_name = item
+    heatmap = make_gradcam_heatmap(img_array, model, last_conv_layer_name)
+    heatmap = cv2.resize(heatmap,(256,256))
+    
+    # img, heatmap, heatmap_, superimposed_img = get_jet_img(img, heatmap)
+    # a colormap and a normalization instance
+    cmap = plt.cm.jet
+    norm = plt.Normalize(vmin=heatmap.min(), vmax=heatmap.max())
+
+    # map the normalized data to colors
+    # image is now RGBA (512x512x4) 
+    image = cmap(norm(heatmap))
+    print("---------",heatmap.shape)
+    img_save_name = "lungs_attention_{}.png".format(image_no)
+    plt.matshow(image)
+    plt.show()
+    
+    plt.imsave(img_save_name, image)
+    image_no += 1

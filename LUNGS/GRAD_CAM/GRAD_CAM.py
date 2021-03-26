@@ -105,10 +105,11 @@ def get_jet_img(img, heatmap):
     # superimposed_img.save(save_path)
     # img_ = cv2.resize(img, (360, 360),interpolation=cv2.INTER_CUBIC)
     # print("img ","--"*60,img.shape)
-    heatmap_ = cv2.resize(heatmap, (360, 360),interpolation = cv2.INTER_CUBIC)
+    heatmap_ = cv2.resize(heatmap, (256, 256),interpolation = cv2.INTER_CUBIC)
     print("heatmap ","--"*60,heatmap.shape)
     print("heatmap_ ","--"*60,heatmap_.shape)
-    superimposed_img_ = cv2.resize(np.array(superimposed_img), (360, 360),interpolation = cv2.INTER_CUBIC)
+    superimposed_img_ = cv2.resize(np.array(superimposed_img), (256, 256),interpolation = cv2.INTER_CUBIC)
     print("superimposed img ","--"*60,np.array(superimposed_img).shape)
+    # plt.show(superimposed_img)
     return img, heatmap, heatmap_, superimposed_img
 
