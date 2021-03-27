@@ -50,7 +50,8 @@ model.load_weights('modelW_drrmsan_skinLesion.h5')
 model.summary()
 
 # img = cv2.imread('img_lungs.png',cv2.IMREAD_COLOR)
-img = cv2.imread('X_img_0.bmp',cv2.IMREAD_COLOR)
+img = cv2.imread('img_4.png',cv2.IMREAD_COLOR)
+# 1
 plt.imsave('skin_lesion_img_attention.png', img[:,:,::-1])
 img = cv2.resize(img,(256,192))
 

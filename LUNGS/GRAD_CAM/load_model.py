@@ -50,7 +50,7 @@ model.load_weights('modelW_drrmsan_lungs.h5')
 model.summary()
 
 # img = cv2.imread('img_lungs.png',cv2.IMREAD_COLOR)
-img = cv2.imread('ID_0000_Z_0142.tif',cv2.IMREAD_COLOR)
+img = cv2.imread('img_9.png',cv2.IMREAD_COLOR)
 plt.imsave('lungs_img_attention.png', img)
 img = cv2.resize(img,(256,256))
 
