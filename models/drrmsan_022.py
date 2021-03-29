@@ -454,7 +454,7 @@ def DRRMSAN_multiscale_attention_bayes_022(height, width, n_channels, alpha_1, a
     #up8_add = add([Conv2DTranspose(32*2, (2, 2), strides=(2, 2), padding='same')(mresblock7), mresblock2])
     #up8_dra = attention_up_and_concate(Conv2DTranspose(32*2, (2, 2), strides=(2, 2), padding='same', name='up8_dra')(mresblock7), mresblock2, filters = 32*2)
     up8 = proposed_attention_block_2d(Conv2DTranspose(32*2, (2, 2), strides=(2, 2), padding='same', name='up8')(mresblock7), mresblock2, filters = 32*2)
-    up8 = concatenate([up8, mresblock2])#,
+    up8 = add([up8, mresblock2])#,
     mresblock8 = MultiResBlock(32*2, up8)
     #mresblock8 = rec_res_block(mresblock8, 105)
     conv_8_up = Conv2D(51, (3, 3), padding='same', activation='relu', name='conv_8_up')(mresblock8)
