@@ -1,7 +1,8 @@
 """
 All ReLU Partitioned with 8x8 pool
 
-
+Jacard Index : 0.8198935336434214
+Dice Coefficient : 0.8958695385614235
 
 """
 

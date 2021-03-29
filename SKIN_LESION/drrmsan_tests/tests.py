@@ -34,9 +34,12 @@ from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from tensorflow.keras.metrics import Recall, Precision
 from tensorflow.keras import backend as K
 
+
+
+
 import sys
 sys.path.insert(0, '../../')
-from models import DRRMSAN_multiscale_attention_bayes_007
+from models import DRRMSAN_multiscale_attention_bayes_023
 
 img_files = glob.glob('../trainx/*.bmp')
 msk_files = glob.glob('../trainy/*.bmp')
@@ -190,6 +193,9 @@ def evaluateModel(model, X_test, Y_test, batchSize):
     print('Dice Coefficient : '+str(dice))
     with open("Output.txt", "w") as text_file:
         text_file.write("Jacard : {} Dice Coef : {} ".format(str(jacard), str(dice)))
+    
+    with open("Output_23_mp50.txt", "a") as text_file:
+        text_file.write("Jacard : {} Dice Coef : {}  \n".format(str(jacard), str(dice)))
 
     jaccard_index_list.append(jacard)
     dice_coeff_list.append(dice)
@@ -249,27 +255,26 @@ def trainStep(model, X_train, Y_train, X_test, Y_test, epochs, batchSize):
 
     return model
 
-alpha_1 = 0.25
-alpha_2 = 0.25
-alpha_3 = 0.25
-alpha_4 = 0.25
-model = DRRMSAN_multiscale_attention_bayes_007(height=192, width=256, n_channels=3, alpha_1 = alpha_1, alpha_2 = alpha_2, alpha_3 = alpha_3, alpha_4 = alpha_4)
-
-#model.compile(optimizer='adam', loss='binary_crossentropy', metrics=[dice_coef, jacard, 'accuracy'])
-from tensorflow.keras.metrics import Recall, Precision
 
 
-# 4.55e-6
-model.compile(optimizer=Adam(learning_rate=1e-5), loss='binary_crossentropy', metrics=[dice_coef, jacard, Recall(), Precision() ,'accuracy'])
+for i in range(20):
+    alpha_1 = 0.25
+    alpha_2 = 0.25
+    alpha_3 = 0.25
+    alpha_4 = 0.25
+    model = DRRMSAN_multiscale_attention_bayes_023(height=192, width=256, n_channels=3, alpha_1 = alpha_1, alpha_2 = alpha_2, alpha_3 = alpha_3, alpha_4 = alpha_4)
 
-saveModel(model)
+    #model.compile(optimizer='adam', loss='binary_crossentropy', metrics=[dice_coef, jacard, 'accuracy'])
+    from tensorflow.keras.metrics import Recall, Precision
+    # 4.55e-6
+    model.compile(optimizer=Adam(learning_rate=1e-5), loss='binary_crossentropy', metrics=[dice_coef, jacard, Recall(), Precision() ,'accuracy'])
+    saveModel(model)
+    fp = open('models/log_attn_1_bothsides_skinleison.txt','w')
+    fp.close()
+    fp = open('models/best_attn_1_bothsides_skinleison.txt','w')
+    fp.write('-1.0')
+    fp.close()
+    trainStep(model, X_train, Y_train, X_test, Y_test, epochs=150, batchSize=2)
 
-fp = open('models/log.txt','w')
-fp.close()
-fp = open('models/best.txt','w')
-fp.write('-1.0')
-fp.close()
-
-trainStep(model, X_train, Y_train, X_test, Y_test, epochs=20, batchSize=2)
 
 

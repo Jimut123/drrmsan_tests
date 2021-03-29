@@ -17,4 +17,20 @@ from .drrmsan_004 import DRRMSAN_multiscale_attention_bayes_004
 from .drrmsan_005 import DRRMSAN_multiscale_attention_bayes_005
 from .drrmsan_006 import DRRMSAN_multiscale_attention_bayes_006
 from .drrmsan_007 import DRRMSAN_multiscale_attention_bayes_007
-
+from .drrmsan_008 import DRRMSAN_multiscale_attention_bayes_008
+from .drrmsan_009 import DRRMSAN_multiscale_attention_bayes_009
+from .drrmsan_010 import DRRMSAN_multiscale_attention_bayes_010
+from .drrmsan_011 import DRRMSAN_multiscale_attention_bayes_011
+from .drrmsan_012 import DRRMSAN_multiscale_attention_bayes_012
+from .drrmsan_013 import DRRMSAN_multiscale_attention_bayes_013
+from .drrmsan_014 import DRRMSAN_multiscale_attention_bayes_014
+from .drrmsan_015 import DRRMSAN_multiscale_attention_bayes_015
+from .drrmsan_016 import DRRMSAN_multiscale_attention_bayes_016
+from .drrmsan_017 import DRRMSAN_multiscale_attention_bayes_017
+from .drrmsan_018 import DRRMSAN_multiscale_attention_bayes_018
+from .drrmsan_019 import DRRMSAN_multiscale_attention_bayes_019
+from .drrmsan_020 import DRRMSAN_multiscale_attention_bayes_020
+from .drrmsan_021 import DRRMSAN_multiscale_attention_bayes_021
+from .drrmsan_022 import DRRMSAN_multiscale_attention_bayes_022
+from .drrmsan_023 import DRRMSAN_multiscale_attention_bayes_023
+from .drrmsan_024 import DRRMSAN_multiscale_attention_bayes_024
