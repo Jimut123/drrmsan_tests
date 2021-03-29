@@ -34,3 +34,5 @@ from .drrmsan_021 import DRRMSAN_multiscale_attention_bayes_021
 from .drrmsan_022 import DRRMSAN_multiscale_attention_bayes_022
 from .drrmsan_023 import DRRMSAN_multiscale_attention_bayes_023
 from .drrmsan_024 import DRRMSAN_multiscale_attention_bayes_024
+from .drrmsan_022_conc import DRRMSAN_multiscale_attention_bayes_022_conc
+from .drrmsan_022_add import DRRMSAN_multiscale_attention_bayes_022_add
