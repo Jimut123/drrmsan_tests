@@ -1,0 +1,20 @@
+
+\begin{subfigure}{0.14\textwidth}
+		    \includegraphics[height=2cm,width=0.9\linewidth]{images/img_attention_isic.jpg}
+		\end{subfigure} \hspace{-.2cm} 
+		\begin{subfigure}{0.14\textwidth}
+		    \includegraphics[height=2cm,width=0.9\linewidth]{images/mask_attention_isic.png}
+		\end{subfigure}  \hspace{-.2cm}
+		\begin{subfigure}{0.14\textwidth}
+		    \includegraphics[height=2cm,width=0.9\linewidth]{images/isic_attention_1.png}
+		\end{subfigure} \hspace{-.2cm}
+		\begin{subfigure}{0.14\textwidth}
+		    \includegraphics[height=2cm,width=0.9\linewidth]{images/isic_attention_2.png}
+		\end{subfigure}\hspace{-.2cm}
+		\begin{subfigure}{0.14\textwidth}
+		    \includegraphics[height=2cm,width=0.9\linewidth]{images/isic_attention_3.png}
+		\end{subfigure} \hspace{-.2cm}
+		\begin{subfigure}{0.14\textwidth}
+		    \includegraphics[height=2cm,width=0.9\linewidth]{images/isic_attention_4.png}
+		\end{subfigure}
+

@@ -53,7 +53,7 @@ model.load_weights('modelW_drrmsan_brain.h5')
 model.summary()
 
 # img = cv2.imread('img_lungs.png',cv2.IMREAD_COLOR)
-img = cv2.imread('img_4.png',cv2.IMREAD_COLOR)
+img = cv2.imread('TCGA_CS_4941_19960909_11.tif',cv2.IMREAD_COLOR)
 # 1
 plt.imsave('skin_lesion_img_attention.png', img[:,:,::-1])
 img = cv2.resize(img,(256,256))
@@ -74,8 +74,9 @@ print("preds : ", preds)
 
                                       
 
-lclns = ['activation_76','conv_7_up','add_35']#['activation_54','activation_73','activation_5','activation_111']
-last_conv_layer_name = "activation_111"
+#lclns = ['side_6','side_7','side_8','activation_92']#['activation_54','activation_73','activation_5','activation_111']
+lclns = ['conv2d_40','conv2d_52','conv2d_62','conv2d_74','conv2d_8','conv2d_87']
+last_conv_layer_name = "conv2d_91"
 
 # activation_54 -- 
 # activation_73 --
@@ -90,7 +91,7 @@ image_no = 1
 for item in lclns:
     last_conv_layer_name = item
     heatmap = make_gradcam_heatmap(img_array, model, last_conv_layer_name)
-    heatmap = cv2.resize(heatmap,(256,192))
+    heatmap = cv2.resize(heatmap,(256,256))
     
     # img, heatmap, heatmap_, superimposed_img = get_jet_img(img, heatmap)
     # a colormap and a normalization instance
