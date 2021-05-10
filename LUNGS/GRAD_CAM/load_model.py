@@ -33,13 +33,13 @@ from GRAD_CAM import get_img_array, make_gradcam_heatmap, get_jet_img
 
 import sys
 sys.path.insert(0, '../../')
-from models import DRRMSAN_multiscale_attention_bayes_022
+from models import DRRMSAN_multiscale_attention_bayes_022_conc
 
 alpha_1 = 0.25
 alpha_2 = 0.25
 alpha_3 = 0.25
 alpha_4 = 0.25
-model = DRRMSAN_multiscale_attention_bayes_022(height=256, width=256, n_channels=3, alpha_1 = alpha_1, alpha_2 = alpha_2, alpha_3 = alpha_3, alpha_4 = alpha_4)
+model = DRRMSAN_multiscale_attention_bayes_022_conc(height=256, width=256, n_channels=3, alpha_1 = alpha_1, alpha_2 = alpha_2, alpha_3 = alpha_3, alpha_4 = alpha_4)
 # from tensorflow.keras.utils import  plot_model as pm  #plotting the model structure
 # pm(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True,dpi=60)
 
@@ -50,7 +50,7 @@ model.load_weights('modelW_drrmsan_lungs.h5')
 model.summary()
 
 # img = cv2.imread('img_lungs.png',cv2.IMREAD_COLOR)
-img = cv2.imread('img_9.png',cv2.IMREAD_COLOR)
+img = cv2.imread('img_1_lungs_attention.png',cv2.IMREAD_COLOR)
 plt.imsave('lungs_img_attention.png', img)
 img = cv2.resize(img,(256,256))
 

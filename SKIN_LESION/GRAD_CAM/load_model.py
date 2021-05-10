@@ -33,13 +33,13 @@ from GRAD_CAM import get_img_array, make_gradcam_heatmap, get_jet_img
 
 import sys
 sys.path.insert(0, '../../')
-from models import DRRMSAN_multiscale_attention_bayes_022
+from models import DRRMSAN_multiscale_attention_bayes_022_conc
 
 alpha_1 = 0.25
 alpha_2 = 0.25
 alpha_3 = 0.25
 alpha_4 = 0.25
-model = DRRMSAN_multiscale_attention_bayes_022(height=192, width=256, n_channels=3, alpha_1 = alpha_1, alpha_2 = alpha_2, alpha_3 = alpha_3, alpha_4 = alpha_4)
+model = DRRMSAN_multiscale_attention_bayes_022_conc(height=192, width=256, n_channels=3, alpha_1 = alpha_1, alpha_2 = alpha_2, alpha_3 = alpha_3, alpha_4 = alpha_4)
 # from tensorflow.keras.utils import  plot_model as pm  #plotting the model structure
 # pm(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True,dpi=60)
 
@@ -71,7 +71,7 @@ print("preds : ", preds)
 
                                       
 
-lclns = ['activation_54','activation_73','activation_5','activation_111']
+lclns = ['conv_6_up','conv_7_up','add_35']#['activation_54','activation_73','activation_5','activation_111']
 last_conv_layer_name = "activation_111"
 
 # activation_54 -- 
